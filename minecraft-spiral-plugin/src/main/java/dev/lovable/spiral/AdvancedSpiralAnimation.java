@@ -20,7 +20,7 @@ import java.util.Map;
 
 public final class AdvancedSpiralAnimation {
 
-    private static final int INTERPOLATION_TICKS = 3;
+    
     private static final double GOLDEN_RATIO = 1.618033988749;
 
     @Getter
@@ -46,7 +46,10 @@ public final class AdvancedSpiralAnimation {
         if (this.center.getWorld() == null) return;
 
         final World world = this.center.getWorld();
-        final int segmentsPerStream = Math.max(12, this.preset.getParticleDensity() / 10);
+        final int configuredSegments = this.preset.getSegmentsPerStream();
+        final int segmentsPerStream = configuredSegments > 0
+            ? configuredSegments
+            : Math.max(12, this.preset.getParticleDensity() / 10);
 
         // Create multiple streams based on spiral type
         for (int stream = 0; stream < this.preset.getType().getStreamCount(); stream++) {
@@ -69,7 +72,7 @@ public final class AdvancedSpiralAnimation {
                 final BlockDisplay display = world.spawn(displayLocation, BlockDisplay.class, spawned -> {
                     try {
                         spawned.setBlock(blockData);
-                        spawned.setInterpolationDuration(INTERPOLATION_TICKS);
+                        spawned.setInterpolationDuration(this.preset.getInterpolationTicks());
                         
                         if (this.preset.isGlowEffect()) {
                             spawned.setBrightness(new Display.Brightness(15, 15));
@@ -79,7 +82,7 @@ public final class AdvancedSpiralAnimation {
                         final Transformation transform = new Transformation(
                             new Vector3f(0, 0, 0),
                             new AxisAngle4f(0, 0, 0, 1),
-                            new Vector3f(0.8f + (float)(Math.random() * 0.4f)),
+                            new Vector3f(1.0f),
                             new AxisAngle4f(0, 0, 0, 1)
                         );
                         spawned.setTransformation(transform);
@@ -172,16 +175,15 @@ public final class AdvancedSpiralAnimation {
                     this.center.getZ() + position.z);
 
                 try {
-                    display.setInterpolationDuration(INTERPOLATION_TICKS);
+                    display.setInterpolationDuration(this.preset.getInterpolationTicks());
                     display.teleport(newLocation);
 
                     // Dynamic scaling and rotation
                     if (this.colorCycle % 10 == 0) { // Update every 10 ticks for performance
-                        final float scale = 0.6f + (float)(0.4f * (1 + Math.sin(phase * 2)) / 2);
                         final Transformation transform = new Transformation(
                             new Vector3f(0, 0, 0),
                             new AxisAngle4f((float)phase, 0, 1, 0),
-                            new Vector3f(scale),
+                            new Vector3f(1.0f, 1.0f, 1.0f),
                             new AxisAngle4f(0, 0, 0, 1)
                         );
                         display.setTransformation(transform);

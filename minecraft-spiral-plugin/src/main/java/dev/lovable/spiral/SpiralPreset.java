@@ -3,6 +3,7 @@ package dev.lovable.spiral;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Builder.Default;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -22,6 +23,10 @@ public final class SpiralPreset {
     private final Sound ambientSound;
     private final boolean glowEffect;
     private final boolean colorTransition;
+    @Default
+    private final int segmentsPerStream = 0; // 0 = auto
+    @Default
+    private final int interpolationTicks = 5; // smoother by default
     
     public static SpiralPreset getPreset(final String presetName) {
         switch (presetName.toLowerCase()) {

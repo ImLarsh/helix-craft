@@ -61,7 +61,7 @@ public final class AdvancedSpiralCommand implements CommandExecutor, TabComplete
         }
 
         if (args.length < 6) {
-            sender.sendMessage("§cUsage: /spiral start <type> <radius> <height> <speed> <material> [secondary_material]");
+            sender.sendMessage("§cUsage: /spiral start <type> <radius> <height> <speed> <material> [secondary_material] [segments]");
             sender.sendMessage("§7Types: " + String.join(", ", getSpiralTypeNames()));
             return true;
         }
@@ -86,6 +86,15 @@ public final class AdvancedSpiralCommand implements CommandExecutor, TabComplete
                 }
             }
 
+            int segments = 0; // 0 = auto
+            if (args.length >= 8) {
+                try {
+                    segments = Math.max(8, Math.min(200, Integer.parseInt(args[7])));
+                } catch (NumberFormatException ignored) {
+                    segments = 0;
+                }
+            }
+            
             final SpiralPreset customPreset = SpiralPreset.builder()
                 .name("Custom")
                 .type(type)
@@ -99,6 +108,7 @@ public final class AdvancedSpiralCommand implements CommandExecutor, TabComplete
                 .ambientSound(null)
                 .glowEffect(true)
                 .colorTransition(false)
+                .segmentsPerStream(segments)
                 .build();
 
             final String spiralId = SpiralPlugin.getInstance().getAdvancedSpiralManager()
