@@ -1,14 +1,30 @@
+
 name: SpiralBlocks
-version: 1.0.0
+version: 2.0.0-PREMIUM
 main: dev.lovable.spiral.SpiralPlugin
 api-version: '1.21'
 author: Lovable
 website: https://lovable.dev/
+description: Premium spiral block animation plugin with advanced features
 commands:
   spiral:
-    description: Control the spiral block animation
-    usage: /<command> <start|stop> [radius] [height] [speed] [block] [particles]
+    description: Control advanced spiral block animations with premium features
+    usage: |
+      /<command> start <type> <radius> <height> <speed> <material> [secondary_material] - Create custom spiral
+      /<command> preset <preset_name> - Use premium presets (fire, ice, mystic, nature, classic)
+      /<command> stop [spiral_id] - Stop specific spiral or all spirals
+      /<command> list - List all active spirals
+      /<command> presets - View available premium presets
+      /<command> info - Show plugin information
     permission: spiral.use
+    aliases: [spirals, helix]
 permissions:
   spiral.use:
+    description: Allows use of spiral commands
+    default: op
+  spiral.preset:
+    description: Allows use of premium presets
+    default: op
+  spiral.multiple:
+    description: Allows creating multiple simultaneous spirals
     default: op

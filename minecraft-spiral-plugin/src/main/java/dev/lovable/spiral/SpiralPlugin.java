@@ -1,3 +1,4 @@
+
 package dev.lovable.spiral;
 
 import lombok.Getter;
@@ -10,27 +11,34 @@ public final class SpiralPlugin extends JavaPlugin {
     private static SpiralPlugin instance;
 
     @Getter
-    private SpiralManager spiralManager;
+    private SpiralManager spiralManager; // Keep for backwards compatibility
+
+    @Getter
+    private AdvancedSpiralManager advancedSpiralManager;
 
     @Override
     public void onEnable() {
         instance = this;
         this.saveDefaultConfig();
 
+        // Initialize both managers for compatibility
         this.spiralManager = new SpiralManager();
+        this.advancedSpiralManager = new AdvancedSpiralManager();
 
-        final PluginCommand pluginCommand = this.getCommand("spiral");
-        if (pluginCommand != null) {
-            final SpiralCommand spiralCommand = new SpiralCommand();
-            pluginCommand.setExecutor(spiralCommand);
-            pluginCommand.setTabCompleter(spiralCommand);
+        // Register commands
+        final PluginCommand spiralCommand = this.getCommand("spiral");
+        if (spiralCommand != null) {
+            final AdvancedSpiralCommand commandHandler = new AdvancedSpiralCommand();
+            spiralCommand.setExecutor(commandHandler);
+            spiralCommand.setTabCompleter(commandHandler);
         } else {
             this.getLogger().severe("Command 'spiral' not defined in plugin.yml. Disabling plugin.");
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
-        this.getLogger().info("SpiralBlocks enabled.");
+        this.getLogger().info("✨ SpiralBlocks Premium enabled with advanced features!");
+        this.getLogger().info("Available spiral types: " + java.util.Arrays.toString(SpiralType.values()));
     }
 
     @Override
@@ -38,6 +46,11 @@ public final class SpiralPlugin extends JavaPlugin {
         if (this.spiralManager != null) {
             this.spiralManager.stop();
         }
-        this.getLogger().info("SpiralBlocks disabled.");
+        
+        if (this.advancedSpiralManager != null) {
+            this.advancedSpiralManager.stopAllSpirals();
+        }
+        
+        this.getLogger().info("✨ SpiralBlocks Premium disabled. All spirals stopped.");
     }
 }

@@ -1,8 +1,40 @@
-# Default configuration for Spiral Blocks
-# You can override these values with command arguments on /spiral start
 
+# Premium Spiral Blocks Configuration
+# Default values for custom spirals
+
+# Basic Parameters
 radius: 3.0
 height: 8.0
 speed: 0.15
 block: GLOWSTONE
-particle-density: 80
+particle-density: 100
+
+# Premium Features
+enable-sound-effects: true
+enable-glow-effects: true
+enable-color-transitions: true
+max-spirals-per-player: 3
+max-global-spirals: 10
+
+# Performance Settings
+max-particles-per-tick: 50
+interpolation-ticks: 3
+sound-interval-ticks: 60
+
+# Premium Preset Overrides (optional)
+presets:
+  fire:
+    enabled: true
+    max-uses-per-hour: 10
+  ice:
+    enabled: true
+    max-uses-per-hour: 10
+  mystic:
+    enabled: true
+    max-uses-per-hour: 5
+  nature:
+    enabled: true
+    max-uses-per-hour: 15
+  classic:
+    enabled: true
+    max-uses-per-hour: -1  # unlimited
