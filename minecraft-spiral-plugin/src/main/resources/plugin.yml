@@ -1,0 +1,14 @@
+name: SpiralBlocks
+version: 1.0.0
+main: dev.lovable.spiral.SpiralPlugin
+api-version: '1.21'
+author: Lovable
+website: https://lovable.dev/
+commands:
+  spiral:
+    description: Control the spiral block animation
+    usage: /<command> <start|stop> [radius] [height] [speed] [block] [particles]
+    permission: spiral.use
+permissions:
+  spiral.use:
+    default: op

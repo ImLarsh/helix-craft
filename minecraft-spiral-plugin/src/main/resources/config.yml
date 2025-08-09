@@ -1,0 +1,8 @@
+# Default configuration for Spiral Blocks
+# You can override these values with command arguments on /spiral start
+
+radius: 3.0
+height: 8.0
+speed: 0.15
+block: GLOWSTONE
+particle-density: 80
