@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Display;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
